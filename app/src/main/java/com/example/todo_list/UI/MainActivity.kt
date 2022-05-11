@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.example.namespace.databinding.ActivityMainBinding
 import com.example.todo_list.datasource.TaskDataSource
 
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         updateList()
 
         insertLinsteners()
+        //Datastore
+        //ROOM
     }
 
     private fun insertLinsteners() {
@@ -45,7 +48,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateList() {
-        adapter.submitList(TaskDataSource.getList())
+        val list = TaskDataSource.getList()
+        binding.includedEmpty.emptyState.visibility = if (list.isEmpty()) View.VISIBLE
+        else View.GONE
+
+        adapter.submitList(list)
     }
 
     companion object {
