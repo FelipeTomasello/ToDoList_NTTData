@@ -34,7 +34,8 @@ class MainActivity : AppCompatActivity() {
 
         }
         adapter.listenerDelete = {
-
+            TaskDataSource.deleteTask(it)
+            updateList()
         }
     }
 

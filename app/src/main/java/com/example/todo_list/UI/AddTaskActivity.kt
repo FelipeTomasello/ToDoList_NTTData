@@ -14,6 +14,7 @@ import com.google.android.material.timepicker.TimeFormat
 import java.util.*
 
 
+
 class AddTaskActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityAddTaskBinding
@@ -26,9 +27,11 @@ class AddTaskActivity: AppCompatActivity() {
 
         if(intent.hasExtra(TASK_ID)) {
             val taskId = intent.getIntExtra(TASK_ID,0)
-            TaskDataSource.findById(taskId)?.let { 
-                binding.tilTitle.text = it.,
-                binding.tilDate.text.date
+            TaskDataSource.findById(taskId)?.let {
+                binding.tilTitle.text = it.title
+                binding.tilDate.text = it.date
+                binding.tilTime.text = it.hour
+                binding.tilDescription.text = it.description
             }
 
         }
@@ -63,7 +66,8 @@ class AddTaskActivity: AppCompatActivity() {
                 title = binding.tilTitle.text ,
                 date = binding.tilDate.text,
                 hour = binding.tilTime.text ,
-                description = binding.tilDescription.text
+                description = binding.tilDescription.text,
+                id = intent.getIntExtra(TASK_ID,0)
             )
                 TaskDataSource.insertTask(task)
                 setResult(Activity.RESULT_OK)
